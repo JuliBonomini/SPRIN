@@ -19,4 +19,9 @@ public class ProvinciasController {
         model.addAttribute("provincia", provinciaService.buscarPorId(1));
         return "home";
     }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "login";
+    }
 }
