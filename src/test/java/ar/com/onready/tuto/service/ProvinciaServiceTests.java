@@ -1,14 +1,16 @@
 package ar.com.onready.tuto.service;
 
 import ar.com.onready.tuto.domain.Provincia;
-import ar.com.onready.tuto.repository.impl.ProvinciaRepositoryImpl;
-import ar.com.onready.tuto.service.impl.ProvinciaServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.jdbc.JdbcTestUtils;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -17,13 +19,20 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class ProvinciaServiceTests {
 
     @Autowired
     private ProvinciaService provinciaService;
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private EntityManager entityManager;
+
     @Test
-    public void buscarPorId_conIdValido_devuelveProvincia () {
+    public void buscarPorId_conIdValido_devuelveProvincia() {
         Provincia provincia = provinciaService.buscarPorId(5);
 
         assertEquals(5, provincia.getId());
@@ -32,7 +41,7 @@ public class ProvinciaServiceTests {
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void buscarPorId_conIdInvalido_lanzaException () {
+    public void buscarPorId_conIdInvalido_lanzaException() {
         provinciaService.buscarPorId(0);
     }
 
@@ -42,5 +51,55 @@ public class ProvinciaServiceTests {
 
         assertEquals(3, provincias.size());
     }
+
+    @Test
+    public void buscarPorNombre_conNombreValido_devuelveProvincia() {
+        Provincia provincia = provinciaService.buscarPorNombre("Buenos Aires");
+
+        assertEquals(1, provincia.getId());
+        assertEquals("Buenos Aires", provincia.getNombre());
+        assertEquals(1, provincia.getPaisId());
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void buscarPorNombre_conNombreInexistente_lanzaException() {
+        provinciaService.buscarPorNombre("San Juan");
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void buscarPorNombre_conNombreNull_lanzaException() {
+        provinciaService.buscarPorNombre(null);
+    }
+
+    @Test
+    public void buscarPorNombreParecido_conNombreValido_devuelveListadoProvincias() {
+        List<Provincia> provincias = provinciaService.buscarComoNombre("mendo");
+
+        assertEquals(1, provincias.size());
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void buscarPorNombreParecido_conNombreInvalido_lanzaException() {
+        provinciaService.buscarComoNombre("sal");
+    }
+
+    @Test
+    public void crearPorvincia_conProvinciaValida_devuelveSuccess() {
+
+        System.out.println(provinciaService.getClass().getName());
+
+        Provincia provincia = new Provincia();
+        provincia.setId(3);
+        provincia.setNombre("Salta");
+        provincia.setPaisId(1);
+        int prevCount = JdbcTestUtils.countRowsInTable(jdbcTemplate, "provincia");
+
+        provinciaService.saveProvincia(provincia);
+        entityManager.flush();
+
+        assertEquals(prevCount, JdbcTestUtils.countRowsInTable(jdbcTemplate, "provincia") - 1);
+    }
+
+
 
 }

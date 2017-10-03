@@ -9,4 +9,10 @@ public interface ProvinciaService {
     Provincia buscarPorId(int id);
 
     List<Provincia> buscarTodas();
+
+    Provincia buscarPorNombre(String nombre);
+
+    List<Provincia> buscarComoNombre(String nombre);
+
+    Provincia saveProvincia(Provincia provincia);
 }

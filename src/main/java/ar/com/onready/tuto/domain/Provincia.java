@@ -1,19 +1,19 @@
 package ar.com.onready.tuto.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
 public class Provincia {
 
+    @Id
     private int id;
     private String nombre;
     private int paisId;
-
-    public Provincia() {
-    }
-
-    public Provincia(int id, String nombre, int paisId) {
-        this.id = id;
-        this.nombre = nombre;
-        this.paisId = paisId;
-    }
 
     public int getId() {
         return id;
