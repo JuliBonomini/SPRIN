@@ -43,6 +43,7 @@ public class ProvinciaServiceTests {
     }
 
     @Test(expected = NoSuchElementException.class)
+    @WithMockUser(roles = {"user", "admin"})
     public void buscarPorId_conIdInvalido_lanzaException() {
         provinciaService.buscarPorId(0);
     }
@@ -86,9 +87,10 @@ public class ProvinciaServiceTests {
     }
 
     @Test
+    @WithMockUser(roles = {"admin"})
     public void crearPorvincia_conProvinciaValida_devuelveSuccess() {
 
-        System.out.println(provinciaService.getClass().getName());
+//        System.out.println(provinciaService.getClass().getName());
 
         Provincia provincia = new Provincia();
         provincia.setId(3);

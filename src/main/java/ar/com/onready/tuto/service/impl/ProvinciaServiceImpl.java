@@ -56,7 +56,7 @@ public class ProvinciaServiceImpl implements ProvinciaService {
 
     @Override
     @Transactional
-    @PreAuthorize("admin")
+    @PreAuthorize("hasRole('admin')")
     public Provincia saveProvincia(Provincia provincia) {
         return provinciaRepository.save(provincia);
     }
