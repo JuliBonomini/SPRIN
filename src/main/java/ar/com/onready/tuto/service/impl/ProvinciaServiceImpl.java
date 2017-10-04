@@ -3,6 +3,7 @@ package ar.com.onready.tuto.service.impl;
 import ar.com.onready.tuto.domain.Provincia;
 import ar.com.onready.tuto.repository.ProvinciaRepository;
 import ar.com.onready.tuto.service.ProvinciaService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ public class ProvinciaServiceImpl implements ProvinciaService {
     }
 
     @Override
+    @PreAuthorize("hasRole('admin')")
     public Provincia buscarPorId(int id) {
         Provincia provincia = provinciaRepository.findOne(id);
         if (provincia != null) {
@@ -54,6 +56,7 @@ public class ProvinciaServiceImpl implements ProvinciaService {
 
     @Override
     @Transactional
+    @PreAuthorize("admin")
     public Provincia saveProvincia(Provincia provincia) {
         return provinciaRepository.save(provincia);
     }
