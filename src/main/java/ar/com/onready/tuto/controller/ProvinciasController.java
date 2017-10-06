@@ -13,6 +13,7 @@ import java.util.List;
 @Controller
 public class ProvinciasController {
 
+    private static final String PROVINCIA = "provincia";
     private ProvinciaService provinciaService;
 
     public ProvinciasController(ProvinciaService provinciaService) {
@@ -21,7 +22,7 @@ public class ProvinciasController {
 
     @GetMapping("/home")
     public String home(Model model) {
-        model.addAttribute("provincia", provinciaService.buscarPorId(1));
+        model.addAttribute(PROVINCIA, provinciaService.buscarPorId(1));
         return "home";
     }
 
@@ -33,19 +34,19 @@ public class ProvinciasController {
     @GetMapping("/provincias")
     public String provincias(Model model) {
         List<Provincia> provincias = provinciaService.buscarTodas();
-        model.addAttribute("provincia", provincias);
+        model.addAttribute(PROVINCIA, provincias);
         return "provincias";
     }
 
     @GetMapping("/provincia")
     public String provincia(Model model) {
         Provincia provincia = new Provincia();
-        model.addAttribute("provincia", provincia);
+        model.addAttribute(PROVINCIA, provincia);
         return "provincia";
     }
 
     @PostMapping("/provincia")
-    public String provincia(@ModelAttribute(value = "provincia") Provincia provincia) {
+    public String provincia(@ModelAttribute Provincia provincia) {
         provinciaService.saveProvincia(provincia);
         return "redirect:/provincias";
     }

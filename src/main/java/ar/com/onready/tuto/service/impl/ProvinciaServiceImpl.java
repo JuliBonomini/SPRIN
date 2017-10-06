@@ -24,6 +24,7 @@ public class ProvinciaServiceImpl implements ProvinciaService {
 //    @PreAuthorize("hasRole('admin')")
     public Provincia buscarPorId(int id) {
         Provincia provincia = provinciaRepository.findOne(id);
+
         if (provincia != null) {
             return provinciaRepository.findOne(id);
         }
@@ -40,7 +41,7 @@ public class ProvinciaServiceImpl implements ProvinciaService {
     public Provincia buscarPorNombre(String nombre) {
         Provincia provincia = provinciaRepository.findByNombre(nombre);
 
-        if(provincia != null) {
+        if (provincia != null) {
             return provincia;
         }
         throw new NoSuchElementException();
@@ -50,10 +51,11 @@ public class ProvinciaServiceImpl implements ProvinciaService {
     public List<Provincia> buscarComoNombre(String nombre) {
         List<Provincia> provincias = provinciaRepository.findByNombreIgnoreCaseContaining(nombre);
 
-        if(provincias.size() != 0) {
+        if (provincias.isEmpty()) {
+            throw new NoSuchElementException();
+        } else {
             return provincias;
         }
-        throw new NoSuchElementException();
     }
 
     @Override
