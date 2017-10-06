@@ -3,6 +3,7 @@ package ar.com.onready.tuto.service.impl;
 import ar.com.onready.tuto.domain.Provincia;
 import ar.com.onready.tuto.repository.ProvinciaRepository;
 import ar.com.onready.tuto.service.ProvinciaService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,21 +12,23 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@Slf4j
 public class ProvinciaServiceImpl implements ProvinciaService {
 
-    private ProvinciaRepository provinciaRepository;
+    private final ProvinciaRepository provinciaRepository;
 
     public ProvinciaServiceImpl(ProvinciaRepository provinciaRepository) {
         this.provinciaRepository = provinciaRepository;
     }
 
     @Override
-    @PreAuthorize("hasRole('admin')")
+//    @PreAuthorize("hasRole('admin')")
     public Provincia buscarPorId(int id) {
         Provincia provincia = provinciaRepository.findOne(id);
         if (provincia != null) {
             return provinciaRepository.findOne(id);
         }
+        log.info("Hola");
         throw new NoSuchElementException();
     }
 
@@ -56,9 +59,17 @@ public class ProvinciaServiceImpl implements ProvinciaService {
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('admin')")
+//    @PreAuthorize("hasRole('admin')")
     public Provincia saveProvincia(Provincia provincia) {
         return provinciaRepository.save(provincia);
+    }
+
+    @Override
+    @Transactional
+    public Provincia modificarNombrePorvincia(int id, String nombre) {
+        Provincia provincia = provinciaRepository.findOne(id);
+        provincia.setNombre(nombre);
+        return provincia;
     }
 
 }

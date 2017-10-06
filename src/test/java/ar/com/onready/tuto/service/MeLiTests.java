@@ -1,11 +1,7 @@
 package ar.com.onready.tuto.service;
 
 
-import ar.com.onready.tuto.config.BeanConfig;
 import ar.com.onready.tuto.vo.MeliSite;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import net.minidev.json.JSONObject;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,44 +11,34 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
-import org.springframework.test.web.client.RequestMatcher;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals
-        ;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@AutoConfigureMockRestServiceServer
 public class MeLiTests {
 
     @Autowired
-    MeLiService meLiService;
+    private MeLiService meLiService;
 
     @Autowired
-    BeanConfig beanConfig;
-
     private MockRestServiceServer server;
-
-    private ObjectMapper objectMapper;
-
-    @Before
-    public void setUp() throws Exception {
-
-        server = MockRestServiceServer.createServer(beanConfig.restTemplate());
-        this.server.expect(requestTo("https://api.mercadolibre.com/sites")).andExpect(method(HttpMethod.GET)).andRespond(withSuccess("hola", MediaType.APPLICATION_JSON));
-    }
 
 
     @Test
     public void buscarSites_conApiPublica_respondeSites() {
+        server.expect(requestTo("https://api.mercadolibre.com/sites")).andExpect(method(HttpMethod.GET)).andRespond(withSuccess("[{\"id\": 1,\"nombre\":\"julian\"},{\"id\": 2, \"nombre\":\"julian\"}]", MediaType.APPLICATION_JSON));
         List<MeliSite> sites = meLiService.getSites();
         server.verify();
 
-        assertEquals(20, sites.size());
+        assertEquals(2, sites.size());
 
     }
 

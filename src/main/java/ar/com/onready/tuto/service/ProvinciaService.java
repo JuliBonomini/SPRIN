@@ -15,4 +15,6 @@ public interface ProvinciaService {
     List<Provincia> buscarComoNombre(String nombre);
 
     Provincia saveProvincia(Provincia provincia);
+
+    Provincia modificarNombrePorvincia(int id, String nombre);
 }

@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface MeLiRepository {
 
-    public List<MeliSite> getSites();
+    List<MeliSite> getSites();
 
 }

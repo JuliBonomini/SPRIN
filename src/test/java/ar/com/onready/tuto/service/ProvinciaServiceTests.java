@@ -89,9 +89,6 @@ public class ProvinciaServiceTests {
     @Test
     @WithMockUser(roles = {"admin"})
     public void crearPorvincia_conProvinciaValida_devuelveSuccess() {
-
-//        System.out.println(provinciaService.getClass().getName());
-
         Provincia provincia = new Provincia();
         provincia.setId(3);
         provincia.setNombre("Salta");
@@ -104,6 +101,15 @@ public class ProvinciaServiceTests {
         assertEquals(prevCount, JdbcTestUtils.countRowsInTable(jdbcTemplate, "provincia") - 1);
     }
 
+    @Test
+    @WithMockUser(roles = {"admin"})
+    public void modificarProvincia_conProvinciaExistente_devuelveNuevaProvincia() {
+        provinciaService.modificarNombrePorvincia(5, "Salta");
+        entityManager.flush();
+        int countRowsInTableWhere = JdbcTestUtils.countRowsInTableWhere(jdbcTemplate, "provincia", "nombre='Salta'");
+
+        assertEquals(1, countRowsInTableWhere);
+    }
 
 
 }

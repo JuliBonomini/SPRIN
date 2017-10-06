@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/provincias")
+@RequestMapping("/api/provincias")
 public class ProvinciaRestController {
 
     private ProvinciaService provinciaService;

@@ -12,12 +12,16 @@ import java.util.List;
 @Repository
 public class MeLiRepositoryImpl implements MeLiRepository {
 
-    @Autowired
-    BeanConfig beanConfig;
+    private final RestTemplate restTemplate;
+
+    public MeLiRepositoryImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
 
     @Override
     public List<MeliSite> getSites() {
-        List<MeliSite> sites = beanConfig.restTemplate().getForObject("https://api.mercadolibre.com/sites", List.class);
+        List<MeliSite> sites = restTemplate.getForObject("https://api.mercadolibre.com/sites", List.class);
         return sites;
     }
 
