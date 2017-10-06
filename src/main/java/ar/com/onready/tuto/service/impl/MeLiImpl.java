@@ -4,7 +4,6 @@ import ar.com.onready.tuto.repository.MeLiRepository;
 import ar.com.onready.tuto.service.MeLiService;
 import ar.com.onready.tuto.vo.MeliSite;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 

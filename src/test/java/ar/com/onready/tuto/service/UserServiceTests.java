@@ -24,7 +24,7 @@ public class UserServiceTests {
 
         assertEquals("Julian", user.getUsername());
         assertEquals("asd123", user.getPassword());
-        assertEquals( 1, user.getId());
+        assertEquals(1, user.getId());
     }
 
     @Test
@@ -33,7 +33,7 @@ public class UserServiceTests {
 
         assertEquals("Julian", user.getUsername());
         assertEquals("asd123", user.getPassword());
-        assertEquals( 1, user.getId());
+        assertEquals(1, user.getId());
     }
 
     @Test
@@ -49,7 +49,7 @@ public class UserServiceTests {
 
         assertEquals(newUser.getUsername(), savedUser.getUsername());
         assertEquals(newUser.getPassword(), savedUser.getPassword());
-        assertEquals( newUser.getId(), savedUser.getId());
+        assertEquals(newUser.getId(), savedUser.getId());
     }
 
 }

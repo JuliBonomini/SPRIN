@@ -1,9 +1,7 @@
 package ar.com.onready.tuto.repository.impl;
 
-import ar.com.onready.tuto.config.BeanConfig;
 import ar.com.onready.tuto.repository.MeLiRepository;
 import ar.com.onready.tuto.vo.MeliSite;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 

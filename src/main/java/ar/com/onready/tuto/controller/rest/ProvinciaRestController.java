@@ -5,7 +5,6 @@ import ar.com.onready.tuto.service.ProvinciaService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/provincias")
