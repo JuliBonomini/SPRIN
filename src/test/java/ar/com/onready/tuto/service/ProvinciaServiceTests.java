@@ -1,15 +1,12 @@
 package ar.com.onready.tuto.service;
 
+import ar.com.onready.tuto.TutoApplicationTests;
 import ar.com.onready.tuto.domain.Provincia;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -17,11 +14,7 @@ import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertEquals;
 
-
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@Transactional
-public class ProvinciaServiceTests {
+public class ProvinciaServiceTests extends TutoApplicationTests {
 
     @Autowired
     private ProvinciaService provinciaService;

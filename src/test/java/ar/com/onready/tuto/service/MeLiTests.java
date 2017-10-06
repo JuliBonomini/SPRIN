@@ -1,15 +1,13 @@
 package ar.com.onready.tuto.service;
 
 
+import ar.com.onready.tuto.TutoApplicationTests;
 import ar.com.onready.tuto.vo.MeliSite;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureMockRestServiceServer;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
 
 import java.util.List;
@@ -19,10 +17,8 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
 @AutoConfigureMockRestServiceServer
-public class MeLiTests {
+public class MeLiTests extends TutoApplicationTests {
 
     @Autowired
     private MeLiService meLiService;
